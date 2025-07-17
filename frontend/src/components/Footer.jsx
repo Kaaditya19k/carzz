@@ -11,7 +11,7 @@ export default function Footer() {
       fontSize: 15,
       borderTop: '0',
       boxShadow: '0 -2px 16px rgba(25,118,210,0.06)',
-      position: 'fixed',
+      // position: 'fixed',
       left: 0,
       bottom: 0,
       zIndex: 100,

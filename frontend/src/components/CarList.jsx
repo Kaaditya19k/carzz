@@ -31,9 +31,6 @@ export default function CarList({ refresh }) {
         ) : (
           cars.map(car => (
             <div className="car-card" key={car._id}>
-              {car.images && car.images.length > 0 && (
-                <img src={`http://localhost:5000${car.images[0]}`} alt="car" className="car-card-img" />
-              )}
               <div className="car-card-header">
                 <span className="car-brand">{car.brand}</span>
                 <span className="car-model">{car.model}</span>
