@@ -1,0 +1,124 @@
+.header-root {
+  background: var(--header-gradient);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  height: 70px;
+  color: white;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  position: relative;
+  z-index: 10;
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 1;
+  animation: none;
+  transition: transform 0.18s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.18s;
+  cursor: pointer;
+}
+.header-logo:hover {
+  transform: scale(1.07) translateY(-2px);
+  box-shadow: 0 4px 16px rgba(123,47,242,0.13);
+}
+.header-title {
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.header-theme-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 22px;
+  padding: 0 6px;
+  transition: color 0.18s;
+}
+.header-theme-btn:active {
+  color: #ffd600;
+}
+.header-user-icon {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.18s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.18s;
+}
+.header-user-icon:hover {
+  transform: scale(1.13);
+  box-shadow: 0 2px 8px rgba(123,47,242,0.13);
+}
+.header-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 26px;
+  margin-left: 10px;
+  z-index: 20;
+}
+.header-mobile-menu {
+  display: none;
+}
+@media (max-width: 600px) {
+  .header-root {
+    padding: 0 10px;
+    height: 60px;
+  }
+  .header-title {
+    font-size: 22px;
+  }
+  .header-actions {
+    display: none;
+  }
+  .header-hamburger {
+    display: block;
+  }
+  .header-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 8px;
+    background: var(--bg-section);
+    color: var(--text-main);
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    min-width: 160px;
+    z-index: 100;
+    padding: 12px 0;
+    animation: mobileMenuIn 0.18s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .header-mobile-menu button {
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-size: 18px;
+    padding: 12px 22px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .header-mobile-menu button:hover {
+    background: #e0f7fa;
+    color: var(--btn-border);
+  }
+}
+@keyframes mobileMenuIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+} 

@@ -1,0 +1,190 @@
+:root {
+  --bg-main: #f4fafd;
+  --bg-section: #fff;
+  --text-main: #18304b;
+  --text-secondary: #4a6fa1;
+  --header-gradient: linear-gradient(90deg, #1976d2 0%, #26c6da 100%);
+  --btn-gradient: linear-gradient(90deg, #1976d2 0%, #26c6da 100%);
+  --btn-text: #fff;
+  --btn-border: #1976d2;
+  --feature-accent: #26c6da;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  background: var(--bg-main);
+  min-height: 100vh;
+  color: var(--text-main);
+}
+
+.dark-theme {
+  --bg-main: #16213a;
+  --bg-section: #1e2a47;
+  --text-main: #e3f2fd;
+  --text-secondary: #b2ebf2;
+  --header-gradient: linear-gradient(90deg, #16213a 0%, #26c6da 100%);
+  --btn-gradient: linear-gradient(90deg, #16213a 0%, #26c6da 100%);
+  --btn-text: #fff;
+  --btn-border: #26c6da;
+  --feature-accent: #26c6da;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+.App {
+  min-height: 100vh;
+  min-width: 100vw;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  /* Remove bottom margin/gap */
+  padding-bottom: 0;
+}
+
+.admin-dashboard, .user-browse, .car-list-section, section {
+  margin-bottom: 0 !important;
+}
+
+section {
+  margin-bottom: 48px;
+  /* Remove background for full gradient effect */
+  background: none;
+  color: var(--text-main);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  outline: none;
+}
+
+input, select {
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg-section);
+  color: var(--text-main);
+}
+
+form {
+  background: var(--bg-section);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(123,47,242,0.06);
+  padding: 32px 24px;
+  max-width: 400px;
+  margin: 0 auto 32px auto;
+  color: var(--text-main);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.animated-btn {
+  transition: transform 0.18s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.18s;
+}
+.animated-btn:hover {
+  transform: scale(1.07) translateY(-2px);
+  box-shadow: 0 4px 16px rgba(123,47,242,0.13);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: var(--bg-section);
+  border-radius: 14px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  padding: 32px 24px;
+  max-width: 400px;
+  width: 90vw;
+  color: var(--text-main);
+  animation: modalIn 0.18s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(30px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.user-dropdown {
+  position: fixed;
+  top: 70px;
+  right: 32px;
+  background: var(--bg-section);
+  color: var(--text-main);
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  min-width: 220px;
+  z-index: 1100;
+  padding: 18px 20px 12px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation: modalIn 0.18s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.user-info {
+  margin-bottom: 12px;
+}
+.user-logout-btn {
+  background: var(--btn-gradient);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background 0.18s, color 0.18s, transform 0.18s;
+}
+.user-logout-btn:hover {
+  background: var(--btn-border);
+  color: #fff;
+  transform: scale(1.06);
+}
+
+/* Car bounce animation */
+@keyframes car-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.animated-car {
+  animation: car-bounce 2.2s cubic-bezier(0.4, 0.2, 0.6, 0.8) infinite;
+}
+/* Wheel spin animation */
+@keyframes wheel-spin {
+  100% { transform: rotate(360deg); }
+}
+.animated-wheel {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: wheel-spin 1.2s linear infinite;
+}
+
+@media (max-width: 600px) {
+  .App {
+    padding: 0;
+    min-width: 100vw;
+  }
+  form {
+    padding: 18px 8px;
+    max-width: 98vw;
+  }
+  section {
+    margin-bottom: 24px;
+    min-width: 100vw;
+  }
+}
