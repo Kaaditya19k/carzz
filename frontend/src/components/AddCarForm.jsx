@@ -15,7 +15,7 @@ export default function AddCarForm({ token, onAdd }) {
     setSuccess('');
     try {
       const carData = { brand, model, year, price, status };
-      const res = await fetch('http://localhost:5000/api/cars', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cars`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

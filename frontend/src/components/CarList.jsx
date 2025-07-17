@@ -8,7 +8,7 @@ export default function CarList({ refresh }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch('http://localhost:5000/api/cars')
+    fetch(`${import.meta.env.VITE_API_URL}/api/cars`)
       .then(res => res.json())
       .then(data => {
         setCars(data);

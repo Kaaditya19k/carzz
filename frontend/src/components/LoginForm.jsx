@@ -19,7 +19,7 @@ export default function LoginForm({ onLogin }) {
       if (username) body.username = username;
       if (email) body.email = email;
       body.password = password;
-      const res = await fetch('http://localhost:5000/api/login', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -49,7 +49,7 @@ export default function LoginForm({ onLogin }) {
     setError('');
     setSuccess('');
     try {
-      const res = await fetch('http://localhost:5000/api/register', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password, isAdmin }),
