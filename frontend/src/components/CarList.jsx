@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './CarList.css';
+import { Link } from 'react-router-dom';
 
 export default function CarList({ refresh }) {
   const [cars, setCars] = useState([]);
@@ -30,17 +31,22 @@ export default function CarList({ refresh }) {
           <div>No cars found.</div>
         ) : (
           cars.map(car => (
-            <div className="car-card" key={car._id}>
-              <div className="car-card-header">
-                <span className="car-brand">{car.brand}</span>
-                <span className="car-model">{car.model}</span>
+            <Link to={`/cars/${car._id}`} key={car._id} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div className="car-card">
+                {car.image && (
+                  <img src={car.image} alt={car.brand + ' ' + car.model} className="car-card-img" />
+                )}
+                <div className="car-card-header">
+                  <span className="car-brand">{car.brand}</span>
+                  <span className="car-model">{car.model}</span>
+                </div>
+                <div className="car-card-details">
+                  <div><b>Year:</b> {car.year}</div>
+                  <div><b>Price:</b> ${car.price}</div>
+                  <div><b>Status:</b> <span className={car.status === 'sold' ? 'car-status-sold' : 'car-status-available'}>{car.status}</span></div>
+                </div>
               </div>
-              <div className="car-card-details">
-                <div><b>Year:</b> {car.year}</div>
-                <div><b>Price:</b> ${car.price}</div>
-                <div><b>Status:</b> <span className={car.status === 'sold' ? 'car-status-sold' : 'car-status-available'}>{car.status}</span></div>
-              </div>
-            </div>
+            </Link>
           ))
         )}
       </div>

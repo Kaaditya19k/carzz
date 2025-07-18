@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Welcome from './components/Welcome';
 import LoginForm from './components/LoginForm';
 import CarList from './components/CarList';
 import AddCarForm from './components/AddCarForm';
 import Footer from './components/Footer';
+import CarDetails from './components/CarDetails';
 import './App.css';
 
 const getInitialTheme = () => {
@@ -90,45 +92,51 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Header theme={theme} onThemeToggle={handleThemeToggle} onUserIconClick={handleUserIconClick} />
-      {/* Only show Welcome if not logged in */}
-      {!token && <Welcome />}
-      {/* Login/Register Modal */}
-      {showLogin && !token && (
-        <div className="modal-overlay" onClick={() => setShowLogin(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <LoginForm onLogin={handleLogin} />
+    <Router>
+      <div className="App">
+        <Header theme={theme} onThemeToggle={handleThemeToggle} onUserIconClick={handleUserIconClick} />
+        {/* Only show Welcome if not logged in */}
+        {!token && <Welcome />}
+        {/* Login/Register Modal */}
+        {showLogin && !token && (
+          <div className="modal-overlay" onClick={() => setShowLogin(false)}>
+            <div className="modal-content" onClick={e => e.stopPropagation()}>
+              <LoginForm onLogin={handleLogin} />
+            </div>
           </div>
-        </div>
-      )}
-      {/* User Dropdown */}
-      {showUserMenu && token && (
-        <div className="user-dropdown" ref={userMenuRef}>
-          <div className="user-info">
-            <div style={{ fontWeight: 600 }}>{userInfo.username}</div>
-            <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{userInfo.email}</div>
+        )}
+        {/* User Dropdown */}
+        {showUserMenu && token && (
+          <div className="user-dropdown" ref={userMenuRef}>
+            <div className="user-info">
+              <div style={{ fontWeight: 600 }}>{userInfo.username}</div>
+              <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{userInfo.email}</div>
+            </div>
+            <button className="user-logout-btn" onClick={handleLogout}>Logout</button>
           </div>
-          <button className="user-logout-btn" onClick={handleLogout}>Logout</button>
-        </div>
-      )}
-      {token && isAdmin && (
-        <div className="admin-dashboard">
-          <h2 style={{ textAlign: 'center', margin: '32px 0 18px 0', fontWeight: 800, fontSize: '2.2rem', letterSpacing: 1 }}>Admin Dashboard</h2>
-          {/* Optionally, add stats here in the future */}
-          <AddCarForm token={token} onAdd={handleAdd} />
-          <CarList refresh={refresh} />
-        </div>
-      )}
-      {token && !isAdmin && (
-        <div className="user-browse">
-          <h2 style={{ textAlign: 'center', margin: '32px 0 18px 0', fontWeight: 800, fontSize: '2.2rem', letterSpacing: 1 }}>Browse Cars</h2>
-          <CarList refresh={refresh} />
-        </div>
-      )}
-      {/* No car list for guests */}
-      <Footer />
-    </div>
+        )}
+        <Routes>
+          <Route path="/cars/:id" element={<CarDetails />} />
+          <Route path="/cars" element={<CarList refresh={refresh} />} />
+          {/* Default route for admin/user dashboard */}
+          <Route path="/" element={token ? (
+            isAdmin ? (
+              <div className="admin-dashboard">
+                <h2 style={{ textAlign: 'center', margin: '32px 0 18px 0', fontWeight: 800, fontSize: '2.2rem', letterSpacing: 1 }}>Admin Dashboard</h2>
+                <AddCarForm token={token} onAdd={handleAdd} />
+                <CarList refresh={refresh} />
+              </div>
+            ) : (
+              <div className="user-browse">
+                <h2 style={{ textAlign: 'center', margin: '32px 0 18px 0', fontWeight: 800, fontSize: '2.2rem', letterSpacing: 1 }}>Browse Cars</h2>
+                <CarList refresh={refresh} />
+              </div>
+            )
+          ) : null} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

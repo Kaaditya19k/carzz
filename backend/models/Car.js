@@ -6,7 +6,7 @@ const carSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   year: { type: Number, required: true },
   status: { type: String, enum: ['available', 'sold'], default: 'available' },
-  // Removed images field
+  image: { type: String }, // base64 image string
 });
 
 module.exports = mongoose.model('Car', carSchema); 
