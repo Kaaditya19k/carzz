@@ -59,6 +59,16 @@ section {
 
 button {
   outline: none;
+  background: var(--btn-gradient);
+  color: var(--btn-text);
+  border: 2px solid var(--btn-border);
+  border-radius: 8px;
+  padding: 10px 0;
+  font-weight: 600;
+  font-size: 17px;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
 }
 
 input, select {

@@ -58,9 +58,7 @@ export default function CarDetails() {
         alignItems: 'flex-start',
         gap: 12
       }}>
-        {car.image && (
-          <img src={car.image} alt={car.brand + ' ' + car.model} style={{ width: '100%', maxHeight: 220, objectFit: 'cover', borderRadius: 12, marginBottom: 18, background: '#f8f9ff', border: '1px solid #ece6fa' }} />
-        )}
+        {/* Removed car image display */}
         <h2 style={{ fontWeight: 900, fontSize: '2.3rem', marginBottom: 10, color: 'var(--btn-border)', letterSpacing: 1 }}>
           {car.brand} {car.model} <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>({car.year})</span>
         </h2>

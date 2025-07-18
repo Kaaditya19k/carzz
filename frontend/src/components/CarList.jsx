@@ -33,9 +33,7 @@ export default function CarList({ refresh }) {
           cars.map(car => (
             <Link to={`/cars/${car._id}`} key={car._id} style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="car-card">
-                {car.image && (
-                  <img src={car.image} alt={car.brand + ' ' + car.model} className="car-card-img" />
-                )}
+                {/* Removed car image display */}
                 <div className="car-card-header">
                   <span className="car-brand">{car.brand}</span>
                   <span className="car-model">{car.model}</span>

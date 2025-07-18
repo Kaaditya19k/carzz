@@ -18,8 +18,8 @@ router.post('/', auth, async (req, res) => {
   if (!req.user.isAdmin) {
     return res.status(403).json({ message: 'Only admins can add cars' });
   }
-  const { brand, model, price, year, status, image } = req.body;
-  const car = new Car({ brand, model, price, year, status, image });
+  const { brand, model, price, year, status } = req.body;
+  const car = new Car({ brand, model, price, year, status });
   try {
     const savedCar = await car.save();
     res.status(201).json(savedCar);
