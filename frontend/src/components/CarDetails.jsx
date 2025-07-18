@@ -7,6 +7,7 @@ export default function CarDetails() {
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [imageUrl, setImageUrl] = useState(null); // For car image
 
   useEffect(() => {
     setLoading(true);
@@ -22,6 +23,22 @@ export default function CarDetails() {
         setLoading(false);
       });
   }, [id]);
+
+  useEffect(() => {
+    if (!car) return;
+    // Try to fetch the image
+    fetch(`${import.meta.env.VITE_API_URL}/api/cars/${id}/image`)
+      .then(res => {
+        if (res.ok) return res.blob();
+        else throw new Error('No image');
+      })
+      .then(blob => {
+        setImageUrl(URL.createObjectURL(blob));
+      })
+      .catch(() => {
+        setImageUrl(null);
+      });
+  }, [car, id]);
 
   if (loading) return <div style={{ textAlign: 'center', marginTop: 40 }}>Loading car details...</div>;
   if (error) return <div style={{ color: 'red', textAlign: 'center', marginTop: 40 }}>{error}</div>;
@@ -58,7 +75,9 @@ export default function CarDetails() {
         alignItems: 'flex-start',
         gap: 12
       }}>
-        {/* Removed car image display */}
+        {imageUrl && (
+          <img src={imageUrl} alt="Car" style={{ width: '100%', maxHeight: 260, objectFit: 'contain', borderRadius: 12, marginBottom: 18 }} />
+        )}
         <h2 style={{ fontWeight: 900, fontSize: '2.3rem', marginBottom: 10, color: 'var(--btn-border)', letterSpacing: 1 }}>
           {car.brand} {car.model} <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>({car.year})</span>
         </h2>
@@ -68,6 +87,7 @@ export default function CarDetails() {
         <div style={{ fontSize: 20, marginBottom: 6 }}><b>Year:</b> <span style={{ color: 'var(--text-main)' }}>{car.year}</span></div>
         <div style={{ fontSize: 20, marginBottom: 6 }}><b>Price:</b> <span style={{ color: '#1976d2', fontWeight: 700 }}>${car.price}</span></div>
         <div style={{ fontSize: 20, marginBottom: 6 }}><b>Status:</b> <span className={car.status === 'sold' ? 'car-status-sold' : 'car-status-available'} style={{ fontWeight: 700 }}>{car.status}</span></div>
+        <div style={{ fontSize: 20, marginBottom: 6 }}><b>Type:</b> <span style={{ color: 'var(--text-main)' }}>{car.type}</span></div>
         <div style={{ fontSize: 16, marginTop: 10, color: '#888' }}><b>ID:</b> {car._id}</div>
       </div>
     </div>
